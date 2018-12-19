@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: member-service #服务名
+server:
+  port: 8101 #服务端口号
+
+eureka:
+  client:
+    registerWithEureka: true #将自己注册到注册中心
+    fetchRegistry: true #检索服务信息
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8001/eureka #这里的地址是注册中心的地址，如果注册中心是集群的那么这里要把所有的注册中心地址写完，中间用逗号隔开
+#      defaultZone: http://127.0.0.1:8001/eureka,http://127.0.0.1:8002/eureka,http://127.0.0.1:8003/eureka #这里的地址是注册中心的地址，如果注册中心是集群的那么这里要把所有的注册中心地址写完，中间用逗号隔开
+  instance:
+    lease-renewal-interval-in-seconds: 1 #eureka-client向eureka-service 发送心跳的时间间隔，单位秒，默认30秒
+    lease-expiration-duration-in-seconds: 2 #eureka-service在最后一次心跳之后等待的时间上线，单位秒，超过则剔除，默认90秒
+feign:
+  client:
+    config:
+      default:
+        readTimeout: 5000    # feign发请求时服务与服务之间建立连接的最大时间
+        connectTimeout: 5000 #feign 建立连接后获取数据的最大时间
+  hystrix:
+    enabled: true

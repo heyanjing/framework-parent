@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: test-center-server #服务名
+server:
+  port: 8001 #服务端口号
+
+eureka:
+  instance:
+    hostname: 127.0.0.1 #注册中心ip地址
+  client:
+    registerWithEureka: false #是否将自己注册到注册中心(集群的时候需要设置为true)
+    fetchRegistry: false #因为自己是注册中心，不需要去检索服务信息
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    enable-self-preservation: false #eureka的自我保护机制是否开启，默认为true
+    eviction-interval-timer-in-ms: 2000 # 2秒中剔除eureka-client
+
