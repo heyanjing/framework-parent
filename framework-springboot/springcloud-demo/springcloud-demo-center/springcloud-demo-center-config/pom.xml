@@ -10,11 +10,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.framework.springcloud</groupId>
-    <artifactId>springcloud-demo-center-test</artifactId>
+    <artifactId>springcloud-demo-center-config</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-server</artifactId>
         </dependency>
     </dependencies>
 

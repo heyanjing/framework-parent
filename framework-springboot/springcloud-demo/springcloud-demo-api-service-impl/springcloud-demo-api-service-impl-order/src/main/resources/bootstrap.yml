@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: order-service #服务名
+  cloud:
+    config:
+      profile: dev #配置文件版本环境
+#      uri: http://localhost:8101/   #以url的形式指定配置中心
+      discovery:
+        service-id: config-center-server #以服务名称指定配置中心
+        enabled: true # 开启读取权限
+#      label: master
+### // HEINFO: 2018/12/20 15:57 在bootstrap中就要将自己注册到注册中心 不然找不到 config-center-server
+eureka:
+  client:
+    registerWithEureka: true #将自己注册到注册中心
+    fetchRegistry: true #检索服务信息
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8001/eureka #这里的地址是注册中心的地址，如果注册中心是集群的那么这里要把所有的注册中心地址写完，中间用逗号隔开
+  #      defaultZone: http://127.0.0.1:8001/eureka,http://127.0.0.1:8002/eureka,http://127.0.0.1:8003/eureka #这里的地址是注册中心的地址，如果注册中心是集群的那么这里要把所有的注册中心地址写完，中间用逗号隔开
+  instance:
+    lease-renewal-interval-in-seconds: 1 #eureka-client向eureka-service 发送心跳的时间间隔，单位秒，默认30秒
+    lease-expiration-duration-in-seconds: 2 #eureka-service在最后一次心跳之后等待的时间上线，单位秒，超过则剔除，默认90秒

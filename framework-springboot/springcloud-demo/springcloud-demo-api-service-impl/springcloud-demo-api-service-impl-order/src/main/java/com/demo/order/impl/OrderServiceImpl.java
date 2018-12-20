@@ -7,6 +7,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,10 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
  * date:2018-12-19 2018/12/19:14:15
  */
 @Slf4j
+@RefreshScope
 @RestController
 public class OrderServiceImpl implements IOrderService {
     @Value("${server.port}")
     private String port;
+    @Value("${nameInfo}")
+    private String nameInfo;
+    @Value("${namex}")
+    private String namex;
     @Autowired
     private IMemberServiceFeign iMemberServiceFeign;
 
@@ -59,6 +65,6 @@ public class OrderServiceImpl implements IOrderService {
     @RequestMapping("/getSimple")
     public Result getSimple() {
         log.error("getSimple线程名称{}", Thread.currentThread().getName());
-        return Result.success();
+        return Result.success(namex+"       "+nameInfo);
     }
 }

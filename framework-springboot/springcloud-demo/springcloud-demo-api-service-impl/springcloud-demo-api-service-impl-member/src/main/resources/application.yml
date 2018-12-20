@@ -1,8 +1,14 @@
 spring:
   application:
     name: member-service #服务名
+  cloud:
+    config:
+      profile: dev #配置文件版本环境
+      discovery:
+        service-id: config-center-server #配置中心服务名称
+        enabled: true
 server:
-  port: 8101 #服务端口号
+  port: 8301 #服务端口号
 
 eureka:
   client:
@@ -14,11 +20,33 @@ eureka:
   instance:
     lease-renewal-interval-in-seconds: 1 #eureka-client向eureka-service 发送心跳的时间间隔，单位秒，默认30秒
     lease-expiration-duration-in-seconds: 2 #eureka-service在最后一次心跳之后等待的时间上线，单位秒，超过则剔除，默认90秒
+ribbon:
+  ReadTimeout: 60000 #feign发请求时服务与服务之间建立连接的最大时间
+  ConnectTimeout: 60000 #feign 建立连接后获取数据的最大时间
+############// HEINFO: 2018/12/19 21:55 下面的内容有效 与上面起到相同效果###############
+#feign:
+#  client:
+#    config:
+#      default:
+#        readTimeout: 3000    ######可用 feign发请求时服务与服务之间建立连接的最大时间
+#        connectTimeout: 3000 ######可用 feign 建立连接后获取数据的最大时间
 feign:
-  client:
-    config:
-      default:
-        readTimeout: 5000    # feign发请求时服务与服务之间建立连接的最大时间
-        connectTimeout: 5000 #feign 建立连接后获取数据的最大时间
   hystrix:
-    enabled: true
+    enabled: true  #开启hystrix熔断器
+
+#默认的Hystrix会限制某个请求的最大并发量：默认10，如果超过了这个默认的并发值且开启了fallback，则丢弃剩下的请求直接进入fallback方法，找到方法之后就是修改配置的事情了。
+# 核心的两个设置，允许并发量1000的请求，默认情况下下面两个值都是10，也就是超过10个的并发会直接进入fallback方法，不会去真正请求
+hystrix.command.default.execution.isolation.semaphore.maxConcurrentRequests: 10
+hystrix.command.default.fallback.isolation.semaphore.maxConcurrentRequests: 10000
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000 # #####可用 熔断机制的超时时间
+
+######可用 是否开启超时熔断机制，默认开启
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        timeout:
+#          enabled: true
+#      isolation:
+#        thread:
+#          timeoutInMilliseconds: 60000 # 不可用

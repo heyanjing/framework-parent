@@ -1,6 +1,6 @@
 spring:
   application:
-    name: test-center-server #服务名
+    name: register-center-server #服务名
 server:
   port: 8001 #服务端口号
 

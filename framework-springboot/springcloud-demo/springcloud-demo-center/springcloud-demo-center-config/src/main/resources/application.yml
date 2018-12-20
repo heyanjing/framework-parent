@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: config-center-server #服务名
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/heyanjing/configs.git
+          search-paths:
+            - configs
+            #### // HEINFO: 2018/12/20 11:37  不是私库不需要加 用户名和密码
+          username: 1366162208@qq.com
+          password: heyanjing@890919
+      label: master
+server:
+  port: 8101 #服务端口号
+
+
+eureka:
+  client:
+    registerWithEureka: true #将自己注册到注册中心
+    fetchRegistry: true #检索服务信息
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8001/eureka #这里的地址是注册中心的地址，如果注册中心是集群的那么这里要把所有的注册中心地址写完，中间用逗号隔开
+  #      defaultZone: http://127.0.0.1:8001/eureka,http://127.0.0.1:8002/eureka,http://127.0.0.1:8003/eureka #这里的地址是注册中心的地址，如果注册中心是集群的那么这里要把所有的注册中心地址写完，中间用逗号隔开
+  instance:
+    lease-renewal-interval-in-seconds: 1 #eureka-client向eureka-service 发送心跳的时间间隔，单位秒，默认30秒
+    lease-expiration-duration-in-seconds: 2 #eureka-service在最后一次心跳之后等待的时间上线，单位秒，超过则剔除，默认90秒

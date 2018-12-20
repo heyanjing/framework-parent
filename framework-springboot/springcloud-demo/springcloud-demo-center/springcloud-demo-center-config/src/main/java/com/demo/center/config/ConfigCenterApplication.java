@@ -1,24 +1,27 @@
-package com.demo.center;
+package com.demo.center.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.cloud.config.server.EnableConfigServer;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
  * @author heyanjing
  * date:2018-12-18 2018/12/18:14:30
  */
 @Slf4j
-@EnableEurekaServer
+@EnableEurekaClient
+@EnableConfigServer
 @SpringBootApplication
-public class CenterApplication implements ApplicationRunner {
+public class ConfigCenterApplication implements ApplicationRunner {
 
     public static void main(String[] args) {
-        SpringApplication.run(CenterApplication.class, args);
+        SpringApplication.run(ConfigCenterApplication.class, args);
     }
+
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
         log.debug("Debugging log");

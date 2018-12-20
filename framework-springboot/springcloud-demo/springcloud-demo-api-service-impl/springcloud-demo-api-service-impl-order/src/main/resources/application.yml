@@ -1,19 +1,29 @@
-spring:
-  application:
-    name: order-service #服务名
+#spring:
+#  application:
+#    name: order-service #服务名
+#  profiles:
+#    active: dev
+#  cloud:
+#    config:
+#      profile: dev #配置文件版本环境
+##      uri: http://localhost:8101/   #以url的形式指定配置中心
+#      discovery:
+#        service-id: config-center-server #以服务名称指定配置中心
+#        enabled: true # 开启读取权限
+#      label: master
 server:
   port: 8201 #服务端口号
 
-eureka:
-  client:
-    registerWithEureka: true #将自己注册到注册中心
-    fetchRegistry: true #检索服务信息
-    serviceUrl:
-      defaultZone: http://127.0.0.1:8001/eureka #这里的地址是注册中心的地址，如果注册中心是集群的那么这里要把所有的注册中心地址写完，中间用逗号隔开
-#      defaultZone: http://127.0.0.1:8001/eureka,http://127.0.0.1:8002/eureka,http://127.0.0.1:8003/eureka #这里的地址是注册中心的地址，如果注册中心是集群的那么这里要把所有的注册中心地址写完，中间用逗号隔开
-  instance:
-    lease-renewal-interval-in-seconds: 1 #eureka-client向eureka-service 发送心跳的时间间隔，单位秒，默认30秒
-    lease-expiration-duration-in-seconds: 2 #eureka-service在最后一次心跳之后等待的时间上线，单位秒，超过则剔除，默认90秒
+#eureka:
+#  client:
+#    registerWithEureka: true #将自己注册到注册中心
+#    fetchRegistry: true #检索服务信息
+#    serviceUrl:
+#      defaultZone: http://127.0.0.1:8001/eureka #这里的地址是注册中心的地址，如果注册中心是集群的那么这里要把所有的注册中心地址写完，中间用逗号隔开
+##      defaultZone: http://127.0.0.1:8001/eureka,http://127.0.0.1:8002/eureka,http://127.0.0.1:8003/eureka #这里的地址是注册中心的地址，如果注册中心是集群的那么这里要把所有的注册中心地址写完，中间用逗号隔开
+#  instance:
+#    lease-renewal-interval-in-seconds: 1 #eureka-client向eureka-service 发送心跳的时间间隔，单位秒，默认30秒
+#    lease-expiration-duration-in-seconds: 2 #eureka-service在最后一次心跳之后等待的时间上线，单位秒，超过则剔除，默认90秒
 
 ribbon:
   ReadTimeout: 60000 #feign发请求时服务与服务之间建立连接的最大时间
@@ -35,21 +45,25 @@ hystrix.command.default.execution.isolation.semaphore.maxConcurrentRequests: 10
 hystrix.command.default.fallback.isolation.semaphore.maxConcurrentRequests: 10000
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000 # #####可用 熔断机制的超时时间
 
-######可用 禁用超时熔断机制
-hystrix:
-  command:
-    default:
-      execution:
-        timeout:
-          enabled: true
+######可用 是否开启超时熔断机制，默认开启
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        timeout:
+#          enabled: true # 可用
 #      isolation:
 #        thread:
 #          timeoutInMilliseconds: 60000 # 不可用
 
-
-
-
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' #开放所有页面节点
+  endpoint:
+    health:
+      show-details: always #显示健康具体信息  默认不会显示详细信息
 
 
 
@@ -60,3 +74,6 @@ hystrix:
 #        isolation:
 #          thread:
 #            timeoutInMilliseconds: 1000
+
+nameInfo: wocao
+
