@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * date:2018-12-19 2018/12/19:14:15
  */
 @Slf4j
-@RefreshScope
+@RefreshScope // 将所有需要用到的配置写到一个类里面再加上该注解，这样不用每个地方都写这个注解
 @RestController
 public class OrderServiceImpl implements IOrderService {
     @Value("${server.port}")
