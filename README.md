@@ -1,2 +1,2 @@
 # framework-parent
-- 微服务学习 demo
+- 微服务学习 demox
